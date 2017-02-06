@@ -1,13 +1,17 @@
 import React from 'react';
 
+import styles from '../styles/index';
+
 
 function EventSquare(props) {
     return (
-        <div className="col-lg-12 col-md-4 col-lg-4">
-            <h5>{props.event.title}</h5>
-            <span>From {props.event.from} to {props.event.to}</span>
-            <div>{props.event.description}</div>
-            <span>{props.event.price} === 0 ? 'Free' : {props.event.price}</span>
+        <div className="col-sm-12 col-md-4 col-lg-4" style={styles.eventSquareOuter}>
+            <div style={styles.eventSquareInner}>
+                <a><h5 style={styles.eventSquareTitle} >{props.event.title}</h5></a>
+                <div style={styles.squareDescription}>{props.event.description}</div>
+                <div >From {props.event.from} to {props.event.to}</div>                
+                <span style={styles.squarePrice}>Price: {props.event.price === 0 ? 'Free' : '$' + props.event.price}</span>
+            </div>
         </div>
     );
 }

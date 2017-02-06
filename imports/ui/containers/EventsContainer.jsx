@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
- 
+
 import EventSquare from '../components/EventSquare';
+
+import styles from '../styles/index';
  
 
 export default class EventsContainer extends Component {
-  
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            display: 'grid'
+        };
+    }
+    
     getEvents() {
         return [
             { 
                 _id: 1,
                 title: 'Dev Day',
-                description: 'conference that gathers the best developers',
+                description: 'Conference that gathers the best developers.',
                 picture: 'https://www.madewithmarmalade.com/sites/default/files/styles/620x300_scaled/public/blog/fb_fb_photocover_1_-_copy.png?itok=St910B1f',
                 price: 0,
                 from: "October 13, 2017 09:00:00",
@@ -39,17 +48,57 @@ export default class EventsContainer extends Component {
  
     renderEvents() {
         
-        console.log(this.getEvents());
-        return (
-            this.getEvents().map((ev) => (
-                <EventSquare key={ev._id.toString()} event={ev}/>
-            ))
-        )
+        if (this.state.display === 'grid') {
+            return (
+                this.getEvents().map((ev) => (
+                    <EventSquare key={ev._id.toString()} event={ev}/>
+                ))
+            )
+        } else {
+            return (
+                //to do: line events
+                <div></div>
+            )
+        }
+    }
+    
+    getDisplayButton() {
+        
+        if (this.state.display === 'grid') {
+            return (
+                <a onClick={this.changeDisplay.bind(this)}>
+                    <span style={styles.glyphicons} className="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                </a>
+            )
+        } else {
+            return (
+                <a onClick={this.changeDisplay.bind(this)}>
+                    <span style={styles.glyphicons} className="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </a>
+            )
+        }
+    }
+    
+    changeDisplay() {
+        if (this.state.display === 'grid') {
+            this.setState({
+                display: 'line'
+            });
+        } else{
+            this.setState({
+                display: 'grid'
+            });
+        }
     }
  
     render() {
         return (
             <div className="container">
+                <div style={styles.displayIcons}>
+                    <div className="pull-right">
+                        {this.getDisplayButton()}
+                    </div>
+                </div>
                 <div className="row">
                     {this.renderEvents()}
                 </div>
@@ -58,5 +107,6 @@ export default class EventsContainer extends Component {
     }
     
 }
+
 
 
