@@ -51,7 +51,7 @@ export default class EventsContainer extends Component {
         if (this.state.display === 'grid') {
             return (
                 this.getEvents().map((ev) => (
-                    <EventSquare key={ev._id.toString()} event={ev}/>
+                    <EventSquare key={ev._id.toString()} event={ev} handleOnClickTitle={this.showOneEvent.bind(this, ev._id)}/>
                 ))
             )
         } else {
@@ -79,6 +79,10 @@ export default class EventsContainer extends Component {
         }
     }
     
+    showOneEvent(id) {
+        FlowRouter.go('/event/' + id);
+    }
+    
     changeDisplay() {
         if (this.state.display === 'grid') {
             this.setState({
@@ -90,6 +94,8 @@ export default class EventsContainer extends Component {
             });
         }
     }
+
+
  
     render() {
         return (
